@@ -392,114 +392,45 @@ footer {
 
 </main>
 
+<audio id="birthdaySong" preload="none" loop>
+  <source src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Happy_Birthday_to_You.ogg" type="audio/ogg">
+</audio>
+
 <button class="music-control" id="musicButton"
   onclick="toggleMusic()" style="display:none;">
   🔊 Music On
 </button>
 
 <script>
-let audioContext;
-let musicTimer;
+const birthdaySong = document.getElementById("birthdaySong");
 let musicPlaying = false;
-let noteIndex = 0;
-
-// Original cheerful birthday melody
-// Notes are synthesized in the browser using Web Audio.
-const melody = [
-  [523.25, 0.30], [659.25, 0.30], [783.99, 0.45],
-  [659.25, 0.30], [783.99, 0.30], [880.00, 0.60],
-  [783.99, 0.30], [659.25, 0.30], [523.25, 0.45],
-  [587.33, 0.30], [659.25, 0.30], [698.46, 0.60],
-  [659.25, 0.30], [587.33, 0.30], [523.25, 0.70],
-  [783.99, 0.30], [880.00, 0.30], [1046.50, 0.65],
-  [880.00, 0.30], [783.99, 0.30], [659.25, 0.70]
-];
-
-function playNote(frequency, duration) {
-  if (!audioContext || audioContext.state !== "running") return;
-
-  const oscillator = audioContext.createOscillator();
-  const gain = audioContext.createGain();
-
-  oscillator.type = "sine";
-  oscillator.frequency.value = frequency;
-
-  const now = audioContext.currentTime;
-
-  gain.gain.setValueAtTime(0.0001, now);
-  gain.gain.exponentialRampToValueAtTime(0.12, now + 0.04);
-  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-  oscillator.connect(gain);
-  gain.connect(audioContext.destination);
-
-  oscillator.start(now);
-  oscillator.stop(now + duration + 0.05);
-}
-
-function playMelody() {
-  if (!musicPlaying) return;
-
-  const [frequency, duration] = melody[noteIndex];
-
-  playNote(frequency, duration);
-
-  noteIndex = (noteIndex + 1) % melody.length;
-
-  musicTimer = setTimeout(playMelody, duration * 1000 + 100);
-}
 
 async function startMusic() {
   try {
-    const AudioContextClass =
-      window.AudioContext || window.webkitAudioContext;
-
-    if (!AudioContextClass) {
-      alert("Your browser does not support background music.");
-      return;
-    }
-
-    if (!audioContext) {
-      audioContext = new AudioContextClass();
-    }
-
-    await audioContext.resume();
-
+    await birthdaySong.play();
     musicPlaying = true;
     document.getElementById("musicButton").textContent = "🔊 Music On";
-
-    clearTimeout(musicTimer);
-    playMelody();
-
   } catch (error) {
-    console.error("Music could not start:", error);
+    console.error("Birthday song could not play:", error);
+    document.getElementById("musicButton").textContent = "▶ Play Birthday Song";
   }
 }
 
 function stopMusic() {
+  birthdaySong.pause();
   musicPlaying = false;
-  clearTimeout(musicTimer);
-
-  if (audioContext) {
-    audioContext.suspend();
-  }
-
   document.getElementById("musicButton").textContent = "🔇 Music Off";
 }
 
 function toggleMusic() {
-  if (musicPlaying) {
-    stopMusic();
-  } else {
-    startMusic();
-  }
+  if (musicPlaying) stopMusic();
+  else startMusic();
 }
 
 function openSurprise() {
   document.getElementById("opening").classList.add("hidden");
   document.getElementById("main").style.display = "block";
   document.getElementById("musicButton").style.display = "block";
-
   startMusic();
   createBalloons();
   createHearts();
