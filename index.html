@@ -1,0 +1,544 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Wyn Maturan! 🎂</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap');
+
+:root {
+  --pink: #ff7eae;
+  --purple: #9b78db;
+  --dark: #4b315e;
+  --light: #fff6fb;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--dark);
+  background: linear-gradient(135deg, #fff0f7, #f1eaff, #fff8ed);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+#opening {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 22px;
+  background: linear-gradient(140deg, #ffb8d2, #d8c3ff, #fff0f7);
+  transition: opacity .8s ease, visibility .8s ease;
+}
+
+#opening.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.opening-card {
+  max-width: 480px;
+  width: 100%;
+  padding: 45px 25px;
+  border-radius: 30px;
+  text-align: center;
+  background: rgba(255,255,255,.82);
+  box-shadow: 0 20px 70px rgba(112,65,120,.18);
+  backdrop-filter: blur(12px);
+}
+
+.opening-card .cake {
+  font-size: 75px;
+  margin-bottom: 15px;
+  animation: bounce 2s infinite;
+}
+
+.opening-card h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 7vw, 3rem);
+  color: #a94c87;
+  margin-bottom: 12px;
+}
+
+.opening-card p {
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
+
+.open-btn {
+  background: linear-gradient(120deg, #fa76aa, #a77ce0);
+  color: white;
+  border: none;
+  border-radius: 40px;
+  padding: 16px 30px;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 8px 25px #d98bbd66;
+  transition: transform .2s;
+}
+
+.open-btn:hover {
+  transform: translateY(-4px);
+}
+
+#main {
+  display: none;
+  animation: fadeIn 1.2s ease;
+}
+
+.hero {
+  text-align: center;
+  padding: 75px 20px 45px;
+  position: relative;
+}
+
+.eyebrow {
+  color: #a45b9a;
+  letter-spacing: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: 1.15;
+  color: #a34d8a;
+}
+
+.hero h1 span {
+  color: #9270d0;
+}
+
+.hero p {
+  margin-top: 18px;
+  font-size: 17px;
+  color: #745a81;
+}
+
+.hero-heart {
+  font-size: 27px;
+  margin-top: 20px;
+  animation: heartbeat 1.5s infinite;
+}
+
+.container {
+  width: min(1000px, 92%);
+  margin: auto;
+}
+
+.photo-card {
+  max-width: 550px;
+  margin: 15px auto 45px;
+  padding: 14px;
+  background: white;
+  border-radius: 25px;
+  box-shadow: 0 15px 45px rgba(104,67,121,.13);
+  transform: rotate(-1deg);
+}
+
+.photo-card img {
+  width: 100%;
+  max-height: 550px;
+  object-fit: cover;
+  display: block;
+  border-radius: 17px;
+}
+
+.photo-caption {
+  text-align: center;
+  padding: 17px 8px 8px;
+  color: #a15a94;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+}
+
+.message-card {
+  background: rgba(255,255,255,.8);
+  border: 1px solid #ffffff;
+  padding: 38px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(104,67,121,.09);
+  margin-bottom: 35px;
+}
+
+.message-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  color: #a34d8a;
+  margin-bottom: 20px;
+}
+
+.message-card p {
+  line-height: 1.9;
+  font-size: 16px;
+  color: #705d7b;
+  margin-bottom: 12px;
+}
+
+.wish-card {
+  padding: 35px 25px;
+  border-radius: 25px;
+  text-align: center;
+  background: linear-gradient(130deg, #fbd8e8, #e7d9ff);
+  margin-bottom: 40px;
+}
+
+.wish-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  margin-bottom: 14px;
+}
+
+.wish-card p {
+  line-height: 1.8;
+}
+
+.signature {
+  font-family: 'Playfair Display', serif;
+  font-size: 23px;
+  color: #a34d8a;
+  margin-top: 22px;
+  font-weight: 700;
+}
+
+.music-control {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 20;
+  border: none;
+  border-radius: 40px;
+  padding: 13px 19px;
+  background: #a77ce0;
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 5px 20px #8c62b855;
+}
+
+footer {
+  text-align: center;
+  padding: 35px 15px 90px;
+  color: #98799f;
+  font-size: 13px;
+}
+
+.balloon {
+  position: fixed;
+  bottom: -120px;
+  z-index: 2;
+  font-size: 42px;
+  pointer-events: none;
+  animation: floatUp 9s linear infinite;
+}
+
+.heart {
+  position: fixed;
+  top: -40px;
+  z-index: 2;
+  pointer-events: none;
+  animation: fall 7s linear forwards;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatUp {
+  to { transform: translateY(-120vh) rotate(25deg); }
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+@media(max-width:600px) {
+  .hero { padding-top: 55px; }
+  .message-card { padding: 27px 20px; }
+  .message-card h2 { font-size: 27px; }
+  .photo-card { margin-bottom: 30px; }
+  .music-control { bottom: 12px; right: 12px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- OPENING SCREEN -->
+<section id="opening">
+  <div class="opening-card">
+    <div class="cake">🎂</div>
+    <h1>A Special Day!</h1>
+    <p>
+      Someone special deserves a beautiful surprise.
+      Are you ready, Wyn?
+    </p>
+    <button class="open-btn" onclick="openSurprise()">
+      🎁 Open Your Birthday Surprise
+    </button>
+    <p style="font-size:12px;margin-top:18px;margin-bottom:0;">
+      Made with love by BSEE 1B 💗
+    </p>
+  </div>
+</section>
+
+<!-- MAIN BIRTHDAY WEBSITE -->
+<main id="main">
+
+  <header class="hero">
+    <div class="eyebrow">A SPECIAL CELEBRATION · BSEE 1B</div>
+    <h1>Happy Birthday,<br><span>Wyn Maturan!</span> 🎂</h1>
+    <p>Today is all about celebrating YOU! ✨</p>
+    <div class="hero-heart">💗 💐 💗</div>
+  </header>
+
+  <div class="container">
+
+    <!-- PHOTO -->
+    <div class="photo-card">
+      <img
+        src="wyn-graduation.jpg"
+        alt="Wyn Maturan graduation photo"
+        onerror="this.style.display='none';document.getElementById('photoFallback').style.display='block';"
+      >
+      <div id="photoFallback" style="display:none;text-align:center;padding:55px 15px;">
+        <div style="font-size:65px;">📸</div>
+        <h3>Wyn's Special Moment</h3>
+        <p style="margin-top:8px;">Upload her photo as wyn-graduation.jpg</p>
+      </div>
+      <div class="photo-caption">A beautiful soul deserves a beautiful day 💕</div>
+    </div>
+
+    <!-- GREETING -->
+    <section class="message-card">
+      <h2>Dear Wyn, 💌</h2>
+
+      <p>
+        Happy Birthday! Today, we celebrate not just another year
+        of your life, but also the wonderful person that you are.
+      </p>
+
+      <p>
+        May this new chapter bring you endless happiness,
+        beautiful opportunities, unforgettable memories,
+        and the courage to achieve all your dreams.
+      </p>
+
+      <p>
+        May you continue to shine, grow, and inspire the people
+        around you. Never stop believing in yourself.
+      </p>
+
+      <p>
+        Always remember that you deserve every good thing
+        life has to offer. Enjoy your special day!
+      </p>
+
+      <div class="signature">With love, BSEE 1B 💗</div>
+    </section>
+
+    <!-- WISHES -->
+    <section class="wish-card">
+      <h2>Our Birthday Wishes for You! 🌷</h2>
+
+      <p>
+        🎀 More blessings and beautiful beginnings<br>
+        🌸 More reasons to smile and laugh<br>
+        ✨ More achievements and fulfilled dreams<br>
+        💗 More love, peace, and happiness<br>
+        🎂 More birthdays to celebrate!
+      </p>
+
+      <div class="signature">You deserve the best, Wyn!</div>
+    </section>
+
+  </div>
+
+  <footer>
+    <div style="font-size:27px;margin-bottom:10px;">🎂 🎈 💗</div>
+    Made especially for Wyn Maturan<br>
+    <strong>BSEE 1B</strong> · With love and warm wishes
+  </footer>
+
+</main>
+
+<button class="music-control" id="musicButton"
+  onclick="toggleMusic()" style="display:none;">
+  🔊 Music On
+</button>
+
+<script>
+let audioContext;
+let musicTimer;
+let musicPlaying = false;
+let noteIndex = 0;
+
+// Original cheerful birthday melody
+// Notes are synthesized in the browser using Web Audio.
+const melody = [
+  [523.25, 0.30], [659.25, 0.30], [783.99, 0.45],
+  [659.25, 0.30], [783.99, 0.30], [880.00, 0.60],
+  [783.99, 0.30], [659.25, 0.30], [523.25, 0.45],
+  [587.33, 0.30], [659.25, 0.30], [698.46, 0.60],
+  [659.25, 0.30], [587.33, 0.30], [523.25, 0.70],
+  [783.99, 0.30], [880.00, 0.30], [1046.50, 0.65],
+  [880.00, 0.30], [783.99, 0.30], [659.25, 0.70]
+];
+
+function playNote(frequency, duration) {
+  if (!audioContext || audioContext.state !== "running") return;
+
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+
+  oscillator.type = "sine";
+  oscillator.frequency.value = frequency;
+
+  const now = audioContext.currentTime;
+
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.12, now + 0.04);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+
+  oscillator.start(now);
+  oscillator.stop(now + duration + 0.05);
+}
+
+function playMelody() {
+  if (!musicPlaying) return;
+
+  const [frequency, duration] = melody[noteIndex];
+
+  playNote(frequency, duration);
+
+  noteIndex = (noteIndex + 1) % melody.length;
+
+  musicTimer = setTimeout(playMelody, duration * 1000 + 100);
+}
+
+async function startMusic() {
+  try {
+    const AudioContextClass =
+      window.AudioContext || window.webkitAudioContext;
+
+    if (!AudioContextClass) {
+      alert("Your browser does not support background music.");
+      return;
+    }
+
+    if (!audioContext) {
+      audioContext = new AudioContextClass();
+    }
+
+    await audioContext.resume();
+
+    musicPlaying = true;
+    document.getElementById("musicButton").textContent = "🔊 Music On";
+
+    clearTimeout(musicTimer);
+    playMelody();
+
+  } catch (error) {
+    console.error("Music could not start:", error);
+  }
+}
+
+function stopMusic() {
+  musicPlaying = false;
+  clearTimeout(musicTimer);
+
+  if (audioContext) {
+    audioContext.suspend();
+  }
+
+  document.getElementById("musicButton").textContent = "🔇 Music Off";
+}
+
+function toggleMusic() {
+  if (musicPlaying) {
+    stopMusic();
+  } else {
+    startMusic();
+  }
+}
+
+function openSurprise() {
+  document.getElementById("opening").classList.add("hidden");
+  document.getElementById("main").style.display = "block";
+  document.getElementById("musicButton").style.display = "block";
+
+  startMusic();
+  createBalloons();
+  createHearts();
+}
+
+function createBalloons() {
+  const balloons = ["🎈", "🎈", "💗", "🎈", "💜"];
+
+  setInterval(() => {
+    const balloon = document.createElement("div");
+
+    balloon.className = "balloon";
+    balloon.textContent =
+      balloons[Math.floor(Math.random() * balloons.length)];
+
+    balloon.style.left = Math.random() * 95 + "vw";
+    balloon.style.animationDuration = (7 + Math.random() * 5) + "s";
+
+    document.body.appendChild(balloon);
+
+    setTimeout(() => balloon.remove(), 12000);
+  }, 1200);
+}
+
+function createHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+    heart.textContent = Math.random() > 0.5 ? "💗" : "✨";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (14 + Math.random() * 20) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 7500);
+  }, 700);
+}
+</script>
+
+</body>
+</html>
