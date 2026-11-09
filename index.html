@@ -393,12 +393,12 @@ footer {
 </main>
 
 <audio id="birthdaySong" preload="none" loop>
-  <source src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Happy_Birthday_to_You.ogg" type="audio/ogg">
+  <source src="Wiwish%20you%20a%20Mary%20birthday%20(3).mp3" type="audio/mpeg">
 </audio>
 
 <button class="music-control" id="musicButton"
   onclick="toggleMusic()" style="display:none;">
-  🔊 Music On
+  🎵 Maligayang Bati Playing
 </button>
 
 <script>
@@ -411,15 +411,15 @@ async function startMusic() {
     musicPlaying = true;
     document.getElementById("musicButton").textContent = "🔊 Music On";
   } catch (error) {
-    console.error("Birthday song could not play:", error);
-    document.getElementById("musicButton").textContent = "▶ Play Birthday Song";
+    console.error("Uploaded birthday song could not play:", error);
+    document.getElementById("musicButton").textContent = "▶ Play Maligayang Bati";
   }
 }
 
 function stopMusic() {
   birthdaySong.pause();
   musicPlaying = false;
-  document.getElementById("musicButton").textContent = "🔇 Music Off";
+  document.getElementById("musicButton").textContent = "🔇 Music Paused";
 }
 
 function toggleMusic() {
